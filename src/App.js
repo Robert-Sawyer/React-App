@@ -1,94 +1,150 @@
-import React, {useState} from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person';
+import UserInput from "./Person/UserInput";
+import UserOutput from "./Person/UserOutput";
 
-//Poniżej zastepujemy class App na const app, ponieważ zmieniliśmy teraz tworzymy aplikację za pomocą React Hook - funkcyjnie.
-const app = props => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [personsState, setPersonsState] = useState({
+//importuj zawsze nazwy z wielkich liter żeby Rwact mógł je odróżnić od elementów JSX
+
+class App extends Component {
+    //ustawiamy state, żeby móc tworzyć obiekty i odnosić się do nich przy returnie JSX
+    state = {
         persons: [
             {name: "Sawyer", age: 27},
             {name: "Jack", age: 27},
             {name: "Kate", age: 25}
         ],
-        otherState: 'some other value'
-    });
+        username: "Bob",
+        otherState: 'some other value',
+        showPersons: false
+    }
 
-    const switchNameHandler = (newName) => {
-        setPersonsState({
+    // ĆWICZENIE
+    // usernameChangedHandler = (event) => {
+    //     this.setState({username: event.target.value})
+    // }
+
+    switchNameHandler = (newName) => {
+        // console.log('was clicked');
+        this.setState({
             persons: [
                 {name: newName, age: 27},
                 {name: "Jack", age: 27},
                 {name: "Kate", age: 26}
             ]
-        });
-    };
+        })
 
-    const nameChangedHandler = (event) => {
-        setPersonsState({
+    }
+    nameChangedHandler = (event) => {
+        this.setState({
             persons: [
                 {name: "Sawyer", age: 27},
                 {name: event.target.value, age: 27},
                 // event.target.value pobiera wartość z inputa z Person i wstawia zawartość w miejsce name w tym componencie
                 {name: "Kate", age: 26}
             ]
-        });
-    };
-    const styles = {
-        backgroundColor: 'white',
-        font: 'inherit',
-        border: '1px solid blue',
-        padding: '8px',
-        cursor: 'pointer'
-    };
+        })
+    }
+
+    togglePersonsHandler = () => {
+        const doesShow = this.state.showPersons;
+        this.setState({showPersons:!doesShow});
+    }
+
+    render() {
+        const styles = {
+            backgroundColor: 'white',
+            font: 'inherit',
+            border: '1px solid blue',
+            padding: '8px',
+            cursor: 'pointer'
+        };
+
+        let persons = null;
+
+        if(this.state.showPersons) {
+            persons = (
+                <div>
+                    <Person
+                        name={this.state.persons[0].name}
+                        age={this.state.persons[0].age}/>
+                    <Person
+                        name={this.state.persons[1].name}
+                        age={this.state.persons[1].age}
+                        click={this.switchNameHandler.bind(this, "Bobby")}
+                        changed={this.nameChangedHandler}>
+                        I am a Doctor
+                    </Person>
+                    <Person
+                        name={this.state.persons[2].name}
+                        age={this.state.persons[2].age}/>
+                </div>
+            )
+        }
+        //TO, CO PONIŻEJ TO NIE HTML, TYLKO JSX
         return (
             <div className="App">
                 <h1>Hi, This is a Robert Sawyer's React Application</h1>
                 <p>Hello, Mr. Clean!</p>
                 <button
                     style={styles}
-                    onClick={switchNameHandler.bind(this, 'Bob')}>Switch name</button>
-                <button onClick={() => switchNameHandler('Sawyer!')}>Switch name alternative way</button>
+                    onClick={() => this.switchNameHandler('Sawyer!!!')}>Switch name
+                </button>
+
+                <button
+                    onClick={() => this.switchNameHandler('Sawyer!')}>Switch name alternative way
+                </button>
                 {/*poprzez bind możemy wykorzystać argument dostarczany do switchNameHandler*/}
 
-                <Person
-                    name={personsState.persons[0].name}
-                    age={personsState.persons[0].age}
-                />
-                <Person
-                    name={personsState.persons[1].name}
-                    age={personsState.persons[1].age}
-                    click={switchNameHandler.bind(this, 'Bobby')}
-                    changed={nameChangedHandler}>I am a Doctor
-                </Person>
-                <Person
-                    name={personsState.persons[2].name}
-                    age={personsState.persons[2].age}
-                />
+                <button
+                    style={styles}
+                    onClick={this.togglePersonsHandler}>Hide Person
+                </button>
+                {persons}
+                {/*{*/}
+                {/*    ALTERNATYWNY SPOSÓB DLA HIDE PERSONS*/}
+                {/*    this.state.showPersons === true ?*/}
+                {/*    <div>*/}
+                {/*        <Person*/}
+                {/*            name={this.state.persons[0].name}*/}
+                {/*            age={this.state.persons[0].age}/>*/}
+                {/*        <Person*/}
+                {/*            name={this.state.persons[1].name}*/}
+                {/*            age={this.state.persons[1].age}*/}
+                {/*            click={this.switchNameHandler.bind(this, "Bobby")}*/}
+                {/*            changed={this.nameChangedHandler}>*/}
+                {/*            I am a Doctor*/}
+                {/*        </Person>*/}
+                {/*        <Person*/}
+                {/*            name={this.state.persons[2].name}*/}
+                {/*            age={this.state.persons[2].age}/>*/}
+                {/*    </div> : null*/}
+                {/*}*/}
+                <br/>
+                {/*ĆWICZENIE*/}
+                {/*<UserInput*/}
+                {/*    changed={this.usernameChangedHandler}*/}
+                {/*    currentName={this.state.username}/>*/}
+
+                {/*<UserOutput userName={this.state.username}/>*/}
+                {/*<UserOutput userName={this.state.username}/>*/}
+                {/*<UserOutput userName="Kate"/>*/}
 
             </div>
         );
+        //KOD WYŻEJ MOŻNA ZASTĄPIĆ TYM PONIŻSZYM, EFEKT JEST TEN SAM
+        //   return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, This is a Robert Sawyer\'s React Application'));
     }
 
-    export default app;
-//
-// state = {
-//     persons: [
-//         {name: "Sawyer", age: 27},
-//         {name: "Jack", age: 27},
-//         {name: "Kate", age: 25}
-//     ],
-//     otherState: 'some other value'
-// }
-//
-// switchNameHandler = () => {
-//     // console.log('was clicked');
-//     this.setState({
-//         persons: [
-//             {name: "Robert", age: 27},
-//             {name: "Jack", age: 27},
-//             {name: "Kate", age: 26}
-//         ]
-//     })
-//
-// }
+    //Od początku: zwracamy tworzony komponent reacta za pomocą metody createElement i przekazujemy do niej co najmniej trzy argumenty:
+    //tworzony element (np. div), potem konfiguracje tego elementu (gdy wybierzemy null wtedy tworzy się zwykły, prosty div, więc można do niego
+    //dodać np. {className: 'App'} - wtedy div mędzie miał klasę App, która może mieć właśne style css i gdy nazwa klasy będzie się zgadzać wtedy
+    //zostaną pobrane style css dla niej ustawiona i cały div otrzyma stylowanie z css (z pliku przekazanego w importach).
+// Gdy chcemy utworzyć element w elemencie (niższego poziomu) wtedy jako trzeci argument dajemy kolejną metodę createElement i robymy to samo.
+//Gdy chcemy aby w danym elemencie znajdował się tekst nie będący juz żadnym elementem wtedy jako trzeci argument przekazujemy już zwykły tekst.
+    //W jednym returnie JSX może być tylko jeden element nadrzędny. Można wrzucać w tej jeden element wiele podelemetów, ale np div może być 1
+    //Dla określenia klasy użuwamy className bo class jest słowem kluczowym w JS.
+}
+
+export default App;
+
