@@ -35,6 +35,16 @@ class App extends Component {
         })
 
     }
+
+    deletePerson = (personIndex) => {
+        // const person = this.state.persons.slice(); Gdyby nie było slice podmieniałoby oryginalny obiekt, a tak, robi kopię.
+        const person = [...this.state.persons];
+        // Powyżej bardziej nowoczesna metoda podmieniania originalnego obiektu kopią
+        person.splice(personIndex, 1);
+        // Splice - Metoda, która usuwa element
+        this.setState({persons: person});
+    }
+
     nameChangedHandler = (event) => {
         this.setState({
             persons: [
@@ -65,19 +75,26 @@ class App extends Component {
         if(this.state.showPersons) {
             persons = (
                 <div>
-                    <Person
-                        name={this.state.persons[0].name}
-                        age={this.state.persons[0].age}/>
-                    <Person
-                        name={this.state.persons[1].name}
-                        age={this.state.persons[1].age}
-                        click={this.switchNameHandler.bind(this, "Bobby")}
-                        changed={this.nameChangedHandler}>
-                        I am a Doctor
-                    </Person>
-                    <Person
-                        name={this.state.persons[2].name}
-                        age={this.state.persons[2].age}/>
+                    {this.state.persons.map((person, index) => {
+                      return <Person
+                          click={() => this.deletePerson(index)}
+                          name={person.name}
+                          age={person.age}/>
+                    })}
+                    {/*Już nie musimy dodawać każdego komponenetu osobno jak niżej, tylko zwracamy każdy obiekt state.person jako JSX*/}
+                    {/*<Person*/}
+                    {/*    name={this.state.persons[0].name}*/}
+                    {/*    age={this.state.persons[0].age}/>*/}
+                    {/*<Person*/}
+                    {/*    name={this.state.persons[1].name}*/}
+                    {/*    age={this.state.persons[1].age}*/}
+                    {/*    click={this.switchNameHandler.bind(this, "Bobby")}*/}
+                    {/*    changed={this.nameChangedHandler}>*/}
+                    {/*    I am a Doctor*/}
+                    {/*</Person>*/}
+                    {/*<Person*/}
+                    {/*    name={this.state.persons[2].name}*/}
+                    {/*    age={this.state.persons[2].age}/>*/}
                 </div>
             )
         }
