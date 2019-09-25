@@ -45,15 +45,31 @@ class App extends Component {
         this.setState({persons: person});
     }
 
-    nameChangedHandler = (event) => {
-        this.setState({
-            persons: [
-                {name: "Sawyer", age: 27},
-                {name: event.target.value, age: 27},
-                // event.target.value pobiera wartość z inputa z Person i wstawia zawartość w miejsce name w tym componencie
-                {name: "Kate", age: 26}
-            ]
-        })
+    nameChangedHandler = (event, id) => {
+        const personIndex = this.state.persons.findIndex(p => {
+            return p.id === id;
+        });
+
+        const person = {
+            ...this.state.persons[personIndex]
+        };
+        // const person = Object.assign({}, this.state.persons[personIndex]); - ALTERNATYWA
+
+        person.name = event.target.value;
+
+        const personList = [...this.state.persons];
+        personList[personIndex] = person;
+
+        this.setState({persons: personList});
+
+        // this.setState({
+        //     persons: [
+        //         {name: "Sawyer", age: 27},
+        //         {name: event.target.value, age: 27},
+        //         // event.target.value pobiera wartość z inputa z Person i wstawia zawartość w miejsce name w tym componencie
+        //         {name: "Kate", age: 26}
+        //     ]
+        // })
     }
 
     togglePersonsHandler = () => {
@@ -79,8 +95,10 @@ class App extends Component {
                       return <Person
                           click={() => this.deletePerson(index)}
                           name={person.name}
-                          age={person.age} />
+                          age={person.age}
                           // key={person.id}/> key jest potrzebne dla reacta i musi być unikalne
+                          changed={(event) => this.nameChangedHandler(event, person.id)}
+                        />
                     })}
                     {/*Już nie musimy dodawać każdego komponenetu osobno jak niżej, tylko zwracamy każdy obiekt state.person jako JSX*/}
                     {/*<Person*/}
