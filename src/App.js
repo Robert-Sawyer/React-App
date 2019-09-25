@@ -10,9 +10,9 @@ class App extends Component {
     //ustawiamy state, żeby móc tworzyć obiekty i odnosić się do nich przy returnie JSX
     state = {
         persons: [
-            {name: "Sawyer", age: 27},
-            {name: "Jack", age: 27},
-            {name: "Kate", age: 25}
+            {id: 'dsg', name: "Sawyer", age: 27},
+            {id: 'sfg', name: "Jack", age: 27},
+            {id: 'jgh', name: "Kate", age: 25}
         ],
         username: "Bob",
         otherState: 'some other value',
@@ -79,7 +79,8 @@ class App extends Component {
                       return <Person
                           click={() => this.deletePerson(index)}
                           name={person.name}
-                          age={person.age}/>
+                          age={person.age} />
+                          // key={person.id}/> key jest potrzebne dla reacta i musi być unikalne
                     })}
                     {/*Już nie musimy dodawać każdego komponenetu osobno jak niżej, tylko zwracamy każdy obiekt state.person jako JSX*/}
                     {/*<Person*/}
