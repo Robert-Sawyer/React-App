@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person';
+import ValidationComponent from './Exercise2/ValidationComponent';
 import UserInput from "./Person/UserInput";
 import UserOutput from "./Person/UserOutput";
 
@@ -16,7 +17,8 @@ class App extends Component {
         ],
         username: "Bob",
         otherState: 'some other value',
-        showPersons: false
+        showPersons: false,
+        textLenght: ''
     }
 
     // ĆWICZENIE
@@ -75,6 +77,13 @@ class App extends Component {
     togglePersonsHandler = () => {
         const doesShow = this.state.showPersons;
         this.setState({showPersons:!doesShow});
+    }
+
+    outputTextLenght = (event) => {
+        const textLenghtCopy = {
+            ...this.state.textLenght
+        };
+        this.setState({textLenght: event.target.value});
     }
 
     render() {
@@ -165,7 +174,14 @@ class App extends Component {
                 {/*<UserOutput userName={this.state.username}/>*/}
                 {/*<UserOutput userName={this.state.username}/>*/}
                 {/*<UserOutput userName="Kate"/>*/}
-
+                <br/>
+                {/*===CWICZENIE 2===*/}
+                <input
+                    type="text"
+                    onChange={this.outputTextLenght}
+                    value={this.state.textLenght}/>
+                <p>{this.state.textLenght}</p>
+                <ValidationComponent inputLenght={this.state.textLenght.length}/>
             </div>
         );
         //KOD WYŻEJ MOŻNA ZASTĄPIĆ TYM PONIŻSZYM, EFEKT JEST TEN SAM
