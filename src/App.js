@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person';
 import ValidationComponent from './Exercise2/ValidationComponent';
+import Char from './Exercise2/Char';
 import UserInput from "./Person/UserInput";
 import UserOutput from "./Person/UserOutput";
 
@@ -18,7 +19,7 @@ class App extends Component {
         username: "Bob",
         otherState: 'some other value',
         showPersons: false,
-        textLenght: ''
+        userInput: ''
     }
 
     // ĆWICZENIE
@@ -45,7 +46,7 @@ class App extends Component {
         person.splice(personIndex, 1);
         // Splice - Metoda, która usuwa element
         this.setState({persons: person});
-    }
+    };
 
     nameChangedHandler = (event, id) => {
         const personIndex = this.state.persons.findIndex(p => {
@@ -80,11 +81,15 @@ class App extends Component {
     }
 
     outputTextLenght = (event) => {
-        const textLenghtCopy = {
-            ...this.state.textLenght
-        };
-        this.setState({textLenght: event.target.value});
+        this.setState({userInput: event.target.value});
     }
+
+    deleteChar = (index) => {
+        const text = this.state.userInput.split('');
+        text.splice(index, 1);
+        const updatedText = text.join('');
+        this.setState({userInput: updatedText});
+    };
 
     render() {
         const styles = {
@@ -94,6 +99,13 @@ class App extends Component {
             padding: '8px',
             cursor: 'pointer'
         };
+        const charList = this.state.userInput.split('').map((ch, index) => {
+            return <Char
+                character={ch}
+                key={index}
+                click={() => this.deleteChar(index)}/>
+        });
+// split z pustym stringiem w środku stworzy osobne ramki ze znakami z inputa. Gdyby nie było rozdzielacza/separatora była by 1 ramka
 
         let persons = null;
 
@@ -105,7 +117,8 @@ class App extends Component {
                           click={() => this.deletePerson(index)}
                           name={person.name}
                           age={person.age}
-                          // key={person.id}/> key jest potrzebne dla reacta i musi być unikalne
+                          key={person.id}
+                          // key jest potrzebne dla reacta i musi być unikalne
                           changed={(event) => this.nameChangedHandler(event, person.id)}
                         />
                     })}
@@ -179,9 +192,10 @@ class App extends Component {
                 <input
                     type="text"
                     onChange={this.outputTextLenght}
-                    value={this.state.textLenght}/>
-                <p>{this.state.textLenght}</p>
-                <ValidationComponent inputLenght={this.state.textLenght.length}/>
+                    value={this.state.userInput}/>
+                <p>{this.state.userInput}</p>
+                <ValidationComponent inputLenght={this.state.userInput.length}/>
+                {charList}
             </div>
         );
         //KOD WYŻEJ MOŻNA ZASTĄPIĆ TYM PONIŻSZYM, EFEKT JEST TEN SAM
