@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Radium from 'radium';
 import './App.css';
 import Person from './Person/Person';
 import ValidationComponent from './Exercise2/ValidationComponent';
@@ -93,11 +94,16 @@ class App extends Component {
 
     render() {
         const styles = {
-            backgroundColor: 'white',
+            backgroundColor: 'green',
+            color: 'white',
             font: 'inherit',
             border: '1px solid blue',
             padding: '8px',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            ':hover': {
+                backgroundColor: 'lightgreen',
+                color: 'black'
+            }
         };
         const charList = this.state.userInput.split('').map((ch, index) => {
             return <Char
@@ -137,15 +143,28 @@ class App extends Component {
                     {/*    name={this.state.persons[2].name}*/}
                     {/*    age={this.state.persons[2].age}/>*/}
                 </div>
-            )
+            );
+            styles.backgroundColor = 'red';
+            styles[":hover"] = {
+                backgroundColor: 'orange',
+                color: 'black'
+            }
+        }
+        const classes = [];
+        if (this.state.persons.length <= 2) {
+            classes.push('red');
+        }
+        if (this.state.persons.length <=1) {
+            classes.push('bold');
         }
         //TO, CO PONIŻEJ TO NIE HTML, TYLKO JSX
         return (
             <div className="App">
                 <h1>Hi, This is a Robert Sawyer's React Application</h1>
-                <p>Hello, Mr. Clean!</p>
+                <p className={classes.join(' ')}>Hello, Mr. Clean!</p>
                 <button
                     style={styles}
+                    key={'unique key'}
                     onClick={() => this.switchNameHandler('Sawyer!!!')}>Switch name
                 </button>
 
@@ -212,5 +231,5 @@ class App extends Component {
     //Dla określenia klasy użuwamy className bo class jest słowem kluczowym w JS.
 }
 
-export default App;
+export default Radium(App);
 
