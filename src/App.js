@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import './App.css';
+import classes from './App.module.css';
 import Person from './Person/Person';
 import ValidationComponent from './Exercise2/ValidationComponent';
 import Char from './Exercise2/Char';
-import UserInput from "./Person/UserInput";
-import UserOutput from "./Person/UserOutput";
+// import UserInput from "./Person/UserInput";
+// import UserOutput from "./Person/UserOutput";
 
 //importuj zawsze nazwy z wielkich liter żeby Rwact mógł je odróżnić od elementów JSX
 
@@ -141,19 +141,19 @@ class App extends Component {
             );
             styles.backgroundColor = 'red';
         }
-        const classes = [];
+        const assignedClasses = [];
         if (this.state.persons.length <= 2) {
-            classes.push('red');
+            assignedClasses.push(classes.red);
         }
         if (this.state.persons.length <= 1) {
-            classes.push('bold');
+            assignedClasses.push(classes.bold);
         }
         //TO, CO PONIŻEJ TO NIE HTML, TYLKO JSX
         return (
 
-                <div className="App">
+                <div className={classes.App}>
                     <h1>Hi, This is a Robert Sawyer's React Application</h1>
-                    <p className={classes.join(' ')}>Hello, Mr. Clean!</p>
+                    <p className={assignedClasses.join(' ')}>Hello, Mr. Clean!</p>
                     <button
                         style={styles}
                         key={'unique key'}
