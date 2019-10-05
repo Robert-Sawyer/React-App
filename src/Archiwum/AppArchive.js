@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Radium, {StyleRoot} from 'radium';
 import './App.css';
 import Person from './Person/Person';
 import ValidationComponent from './Exercise2/ValidationComponent';
@@ -98,7 +99,11 @@ class App extends Component {
             font: 'inherit',
             border: '1px solid blue',
             padding: '8px',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            ':hover': {
+                backgroundColor: 'lightgreen',
+                color: 'black'
+            }
         };
         const charList = this.state.userInput.split('').map((ch, index) => {
             return <Char
@@ -140,6 +145,10 @@ class App extends Component {
                 </div>
             );
             styles.backgroundColor = 'red';
+            styles[":hover"] = {
+                backgroundColor: 'orange',
+                color: 'black'
+            }
         }
         const classes = [];
         if (this.state.persons.length <= 2) {
@@ -150,7 +159,7 @@ class App extends Component {
         }
         //TO, CO PONIŻEJ TO NIE HTML, TYLKO JSX
         return (
-
+            <StyleRoot>
                 <div className="App">
                     <h1>Hi, This is a Robert Sawyer's React Application</h1>
                     <p className={classes.join(' ')}>Hello, Mr. Clean!</p>
@@ -208,7 +217,7 @@ class App extends Component {
                     <ValidationComponent inputLenght={this.state.userInput.length}/>
                     {charList}
                 </div>
-
+            </StyleRoot>
         );
         //KOD WYŻEJ MOŻNA ZASTĄPIĆ TYM PONIŻSZYM, EFEKT JEST TEN SAM
         //   return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, This is a Robert Sawyer\'s React Application'));
@@ -224,5 +233,5 @@ class App extends Component {
     //Dla określenia klasy użuwamy className bo class jest słowem kluczowym w JS.
 }
 
-export default App;
+export default Radium(App);
 
