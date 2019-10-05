@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Radium, {StyleRoot} from 'radium';
-import './App.css';
+import './App.module.css';
 import Person from './Person/Person';
 import ValidationComponent from './Exercise2/ValidationComponent';
 import Char from './Exercise2/Char';

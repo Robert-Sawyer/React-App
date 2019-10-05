@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './App.css';
+import './App.module.css';
 import Person from './Person/Person';
 import UserInput from './Person/UserInput';
 import UserOutput from './Person/UserOutput';
