@@ -92,14 +92,6 @@ class App extends Component {
     };
 
     render() {
-        const styles = {
-            backgroundColor: 'green',
-            color: 'white',
-            font: 'inherit',
-            border: '1px solid blue',
-            padding: '8px',
-            cursor: 'pointer'
-        };
         const charList = this.state.userInput.split('').map((ch, index) => {
             return <Char
                 character={ch}
@@ -109,6 +101,7 @@ class App extends Component {
 // split z pustym stringiem w środku stworzy osobne ramki ze znakami z inputa. Gdyby nie było rozdzielacza/separatora była by 1 ramka
 
         let persons = null;
+        let btnClass = null;
 
         if (this.state.showPersons) {
             persons = (
@@ -139,7 +132,7 @@ class App extends Component {
                     {/*    age={this.state.persons[2].age}/>*/}
                 </div>
             );
-            styles.backgroundColor = 'red';
+            btnClass = classes.Red;
         }
         const assignedClasses = [];
         if (this.state.persons.length <= 2) {
@@ -155,18 +148,19 @@ class App extends Component {
                     <h1>Hi, This is a Robert Sawyer's React Application</h1>
                     <p className={assignedClasses.join(' ')}>Hello, Mr. Clean!</p>
                     <button
-                        style={styles}
+                        className={btnClass}
                         key={'unique key'}
                         onClick={() => this.switchNameHandler('Sawyer!!!')}>Switch name
                     </button>
 
                     <button
+                        className={btnClass}
                         onClick={() => this.switchNameHandler('Sawyer!')}>Switch name alternative way
                     </button>
                     {/*poprzez bind możemy wykorzystać argument dostarczany do switchNameHandler*/}
 
                     <button
-                        style={styles}
+                        className={btnClass}
                         onClick={this.togglePersonsHandler}>Hide Person
                     </button>
                     {persons}
