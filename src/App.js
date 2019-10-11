@@ -3,6 +3,7 @@ import classes from './App.module.css';
 import Person from './Person/Person';
 import ValidationComponent from './Exercise2/ValidationComponent';
 import Char from './Exercise2/Char';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 // import UserInput from "./Person/UserInput";
 // import UserOutput from "./Person/UserOutput";
 
@@ -107,14 +108,15 @@ class App extends Component {
             persons = (
                 <div>
                     {this.state.persons.map((person, index) => {
-                        return <Person
-                            click={() => this.deletePerson(index)}
-                            name={person.name}
-                            age={person.age}
-                            key={person.id}
-                            // key jest potrzebne dla reacta i musi być unikalne
-                            changed={(event) => this.nameChangedHandler(event, person.id)}
-                        />
+                        return <ErrorBoundary key={person.id}>
+                             {/*key jest potrzebne dla reacta i musi być unikalne*/}
+                            <Person
+                                click={() => this.deletePerson(index)}
+                                name={person.name}
+                                age={person.age}
+                                changed={(event) => this.nameChangedHandler(event, person.id)}
+                            />
+                        </ErrorBoundary>
                     })}
                     {/*Już nie musimy dodawać każdego komponenetu osobno jak niżej, tylko zwracamy każdy obiekt state.person jako JSX*/}
                     {/*<Person*/}
@@ -144,64 +146,64 @@ class App extends Component {
         //TO, CO PONIŻEJ TO NIE HTML, TYLKO JSX
         return (
 
-                <div className={classes.App}>
-                    <h1>Hi, This is a Robert Sawyer's React Application</h1>
-                    <p className={assignedClasses.join(' ')}>Hello, Mr. Clean!</p>
-                    <button
-                        className={btnClass}
-                        key={'unique key'}
-                        onClick={() => this.switchNameHandler('Sawyer!!!')}>Switch name
-                    </button>
+            <div className={classes.App}>
+                <h1>Hi, This is a Robert Sawyer's React Application</h1>
+                <p className={assignedClasses.join(' ')}>Hello, Mr. Clean!</p>
+                <button
+                    className={btnClass}
+                    key={'unique key'}
+                    onClick={() => this.switchNameHandler('Sawyer!!!')}>Switch name
+                </button>
 
-                    <button
-                        className={btnClass}
-                        onClick={() => this.switchNameHandler('Sawyer!')}>Switch name alternative way
-                    </button>
-                    {/*poprzez bind możemy wykorzystać argument dostarczany do switchNameHandler*/}
+                <button
+                    className={btnClass}
+                    onClick={() => this.switchNameHandler('Sawyer!')}>Switch name alternative way
+                </button>
+                {/*poprzez bind możemy wykorzystać argument dostarczany do switchNameHandler*/}
 
-                    <button
-                        className={btnClass}
-                        onClick={this.togglePersonsHandler}>Hide Person
-                    </button>
-                    {persons}
-                    {/*{*/}
-                    {/*    ALTERNATYWNY SPOSÓB DLA HIDE PERSONS*/}
-                    {/*    this.state.showPersons === true ?*/}
-                    {/*    <div>*/}
-                    {/*        <Person*/}
-                    {/*            name={this.state.persons[0].name}*/}
-                    {/*            age={this.state.persons[0].age}/>*/}
-                    {/*        <Person*/}
-                    {/*            name={this.state.persons[1].name}*/}
-                    {/*            age={this.state.persons[1].age}*/}
-                    {/*            click={this.switchNameHandler.bind(this, "Bobby")}*/}
-                    {/*            changed={this.nameChangedHandler}>*/}
-                    {/*            I am a Doctor*/}
-                    {/*        </Person>*/}
-                    {/*        <Person*/}
-                    {/*            name={this.state.persons[2].name}*/}
-                    {/*            age={this.state.persons[2].age}/>*/}
-                    {/*    </div> : null*/}
-                    {/*}*/}
-                    <br/>
-                    {/*ĆWICZENIE*/}
-                    {/*<UserInput*/}
-                    {/*    changed={this.usernameChangedHandler}*/}
-                    {/*    currentName={this.state.username}/>*/}
+                <button
+                    className={btnClass}
+                    onClick={this.togglePersonsHandler}>Hide Person
+                </button>
+                {persons}
+                {/*{*/}
+                {/*    ALTERNATYWNY SPOSÓB DLA HIDE PERSONS*/}
+                {/*    this.state.showPersons === true ?*/}
+                {/*    <div>*/}
+                {/*        <Person*/}
+                {/*            name={this.state.persons[0].name}*/}
+                {/*            age={this.state.persons[0].age}/>*/}
+                {/*        <Person*/}
+                {/*            name={this.state.persons[1].name}*/}
+                {/*            age={this.state.persons[1].age}*/}
+                {/*            click={this.switchNameHandler.bind(this, "Bobby")}*/}
+                {/*            changed={this.nameChangedHandler}>*/}
+                {/*            I am a Doctor*/}
+                {/*        </Person>*/}
+                {/*        <Person*/}
+                {/*            name={this.state.persons[2].name}*/}
+                {/*            age={this.state.persons[2].age}/>*/}
+                {/*    </div> : null*/}
+                {/*}*/}
+                <br/>
+                {/*ĆWICZENIE*/}
+                {/*<UserInput*/}
+                {/*    changed={this.usernameChangedHandler}*/}
+                {/*    currentName={this.state.username}/>*/}
 
-                    {/*<UserOutput userName={this.state.username}/>*/}
-                    {/*<UserOutput userName={this.state.username}/>*/}
-                    {/*<UserOutput userName="Kate"/>*/}
-                    <br/>
-                    {/*===CWICZENIE 2===*/}
-                    <input
-                        type="text"
-                        onChange={this.outputTextLenght}
-                        value={this.state.userInput}/>
-                    <p>{this.state.userInput}</p>
-                    <ValidationComponent inputLenght={this.state.userInput.length}/>
-                    {charList}
-                </div>
+                {/*<UserOutput userName={this.state.username}/>*/}
+                {/*<UserOutput userName={this.state.username}/>*/}
+                {/*<UserOutput userName="Kate"/>*/}
+                <br/>
+                {/*===CWICZENIE 2===*/}
+                <input
+                    type="text"
+                    onChange={this.outputTextLenght}
+                    value={this.state.userInput}/>
+                <p>{this.state.userInput}</p>
+                <ValidationComponent inputLenght={this.state.userInput.length}/>
+                {charList}
+            </div>
 
         );
         //KOD WYŻEJ MOŻNA ZASTĄPIĆ TYM PONIŻSZYM, EFEKT JEST TEN SAM
