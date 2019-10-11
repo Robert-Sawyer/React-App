@@ -98,7 +98,7 @@ class App extends Component {
                 character={ch}
                 key={index}
                 click={() => this.deleteChar(index)}/>
-        });
+        }); 
 // split z pustym stringiem w środku stworzy osobne ramki ze znakami z inputa. Gdyby nie było rozdzielacza/separatora była by 1 ramka
 
         let persons = null;
