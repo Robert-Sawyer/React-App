@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import './App.module.css';
-import Person from './Person/Person';
-import UserInput from './Person/UserInput';
-import UserOutput from './Person/UserOutput';
+import '../containers/App.module.css';
+import Person from './components/Persons/Person/Person';
+import UserInput from './components/Persons/Person/UserInput';
+import UserOutput from './components/Persons/Person/UserOutput';
 
 //Poniżej zastepujemy class App na const app, ponieważ zmieniliśmy teraz tworzymy aplikację za pomocą React Hook - funkcyjnie.
 const app = props => {

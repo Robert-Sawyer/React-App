@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import classes from './App.module.css';
-import Person from './Person/Person';
-import ValidationComponent from './Exercise2/ValidationComponent';
-import Char from './Exercise2/Char';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Person from '../components/Persons/Person/Person';
+import ValidationComponent from '../Exercise2/ValidationComponent';
+import Char from '../Exercise2/Char';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 // import UserInput from "./Person/UserInput";
 // import UserOutput from "./Person/UserOutput";
 
@@ -98,7 +98,7 @@ class App extends Component {
                 character={ch}
                 key={index}
                 click={() => this.deleteChar(index)}/>
-        }); 
+        });
 // split z pustym stringiem w środku stworzy osobne ramki ze znakami z inputa. Gdyby nie było rozdzielacza/separatora była by 1 ramka
 
         let persons = null;
