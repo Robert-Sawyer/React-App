@@ -10,6 +10,12 @@ import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 //importuj zawsze nazwy z wielkich liter żeby Rwact mógł je odróżnić od elementów JSX
 
 class App extends Component {
+
+    constructor(props) {
+        super(props);
+        console.log('[App.js] constructor');
+    }
+
     //ustawiamy state, żeby móc tworzyć obiekty i odnosić się do nich przy returnie JSX
     state = {
         persons: [
@@ -22,6 +28,20 @@ class App extends Component {
         showPersons: false,
         userInput: ''
     }
+
+    static getDerivedStateFromProps(props, state) {
+        console.log('[App.js] getDerivedStateFromProps', props);
+        return state;
+    }
+
+    componentWillMount() {
+        console.log('[App.js] componentWillMount');
+    }
+
+    componentDidMount() {
+        console.log('[App.js] componentDidMount');
+    }
+
     switchNameHandler = (newName) => {
         // console.log('was clicked');
         this.setState({
@@ -77,6 +97,7 @@ class App extends Component {
     };
 
     render() {
+        console.log('[App.js] render')
         const charList = this.state.userInput.split('').map((ch, index) => {
             return <Char
                 character={ch}
