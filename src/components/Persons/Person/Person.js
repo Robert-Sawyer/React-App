@@ -1,15 +1,20 @@
-import React from 'react';
+import React, {Component} from 'react';
 import classes from './Person.module.css';
 
-const person = (props) => {
-    console.log('[Person.js] rendering...')
-    return (
-        <div className={classes.Person}>
-            <p onClick={props.click}>I am {props.name} and I'm {props.age} years old</p>
-            <p>{props.children}</p>
-            <input type="text" onChange={props.changed} value={props.name}/>
-        </div>
-    )
+class Person extends Component{
+    render() {
+        console.log('[Person.js] rendering...')
+        return (
+            <div className={classes.Person}>
+                <p onClick={this.props.click}>I am {this.props.name} and I'm {this.props.age} years old</p>
+                <p>{this.props.children}</p>
+                <input type="text" onChange={this.props.changed} value={this.props.name}/>
+            </div>
+        )
+    }
+
+
+
     // <p>Hey, this is my favourite leaf! I am {Math.floor(Math.random() * 30)} years old</p>
     //żeby dodać dynamiczny element w tekście zawieramy funkcję w klamrowych nawiasach
 
@@ -19,6 +24,11 @@ const person = (props) => {
 
     //Wyjaśnienie: onClick - dodaliśmy click jako properties w App, więc odnosimy się do niego tutaj za pomocą props, tak samo jak w przypadku
     //name, age i children.
+
+    //W class-based components samo props nie działa, musi być poprzedzone słowem 'this'.
 }
 
-export default person;
+export default Person;
+
+//gdy komponent jest funkcyjny  i ma const zamiast class (wtedy używa się nazwy z małęj litery) to po zmianie na
+//class-based component zmianiamy nazwe na wielką literę i tak samo export
