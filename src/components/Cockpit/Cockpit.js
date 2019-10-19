@@ -1,7 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import classes from "./Cockpit.module.css";
 
 const cockpit = (props) => {
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+        console.log('[Cockpit.js] useEffect');
+        //Http request...
+        setTimeout(() => {
+            alert('Saved data to cloud');
+        }, 1000);
+    }, []);
+    //jeśli chcę, żeby useEffect uruchamiał się tylko gdy coś zmienię, nie za każdym razem, gdy zwinę/rozwinę persons
+    //dodaję w [] odniesienie do tego elementu, zyskując doń dostęp za pomocą props (props.persons]. Można użyć useEffect
+    // wiele razy. jeśli chcę, żeby alert wyświetlał się tylko za pierwszym uruchomieniem persons i nie pokazywał
+    // się podczas zmian, wtedy zostawiam puste nawiazy []
+
     const assignedClasses = [];
     let btnClass = '';
     if (props.showPersons) {
