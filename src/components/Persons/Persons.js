@@ -31,6 +31,11 @@ class Persons extends Component {
         console.log(snapshot);
     }
 
+    componentWillUnmount() {
+        //metoda do uuwania zbędny danych - cleanup (w komp. funkc. można do tego stosować useEffect
+        console.log('[Persons.js] componentWillUnmount');
+    }
+
     render() {
         console.log('[Persons.js] rendering....');
         return this.props.persons.map((person, index) => {

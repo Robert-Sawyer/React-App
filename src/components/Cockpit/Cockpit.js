@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import classes from "./Cockpit.module.css";
 
+//cockpit jest komponentem funkcyjnym, czyli uzywamy w nim React Hook
 const cockpit = (props) => {
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -10,6 +11,10 @@ const cockpit = (props) => {
         setTimeout(() => {
             alert('Saved data to cloud');
         }, 1000);
+        return ( () => {
+            console.log('[Cockpit.js] cleanup work in useEffect');
+            }
+        )
     }, []);
     //jeśli chcę, żeby useEffect uruchamiał się tylko gdy coś zmienię, nie za każdym razem, gdy zwinę/rozwinę persons
     //dodaję w [] odniesienie do tego elementu, zyskując doń dostęp za pomocą props (props.persons]. Można użyć useEffect
