@@ -11,25 +11,32 @@ const cockpit = (props) => {
         setTimeout(() => {
             alert('Saved data to cloud');
         }, 1000);
-        return ( () => {
-            console.log('[Cockpit.js] cleanup work in useEffect');
-            }
-        )
+        return () => {
+                console.log('[Cockpit.js] cleanup work in useEffect');
+            };
     }, []);
     //jeśli chcę, żeby useEffect uruchamiał się tylko gdy coś zmienię, nie za każdym razem, gdy zwinę/rozwinę persons
     //dodaję w [] odniesienie do tego elementu, zyskując doń dostęp za pomocą props (props.persons]. Można użyć useEffect
     // wiele razy. jeśli chcę, żeby alert wyświetlał się tylko za pierwszym uruchomieniem persons i nie pokazywał
     // się podczas zmian, wtedy zostawiam puste nawiazy []
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+        console.log('[Cockpit.js] 2nd useEffect');
+        return () => {
+            console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+        };
+    });
+
     const assignedClasses = [];
     let btnClass = '';
     if (props.showPersons) {
         btnClass = classes.Red;
     }
-    if (props.persons.length <= 2) {
+    if (props.personsLength <= 2) {
         assignedClasses.push(classes.red);
     }
-    if (props.persons.length <= 1) {
+    if (props.personsLength <= 1) {
         assignedClasses.push(classes.bold);
     }
     return (
@@ -57,4 +64,9 @@ const cockpit = (props) => {
 };
 
 
-export default cockpit;
+export default React.memo(cockpit);
+
+//React.memo() zapobiega niepotrzebnemu wywoływaniu elementów tego komponentu - odpowiednik shouldCompopnentUpdate w
+//class-based components.
+//poza tym musieliśmy zmienić person.lenght na pojedyncza zmienną personLength (również w App) ponieważ wcześniej było
+//wykorzystywane persons, które jest częścią innego komponentu i gdy zmieniane było persons to cockpit też

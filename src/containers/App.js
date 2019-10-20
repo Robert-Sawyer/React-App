@@ -132,10 +132,11 @@ class App extends Component {
                 onClick={() => {
                     this.setState({showCockpit: false});
                 }}>Remove cockpit</button>
-                {this.state.showCockpit ? (<Cockpit
+                {this.state.showCockpit ?
+                    (<Cockpit
                     title={this.props.appTitle}
                     showPersons={this.state.showPersons}
-                    persons={this.state.persons}
+                    personsLength={this.state.persons.length}
                     clicked={this.togglePersonsHandler}
                     switched={() => this.switchNameHandler('Sawyer!!!')}
                     switchedAlt={() => this.switchNameHandler('Sawyer!')}/>
