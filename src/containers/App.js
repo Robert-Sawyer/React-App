@@ -5,6 +5,12 @@ import ValidationComponent from '../Exercise2/ValidationComponent';
 import Char from '../Exercise2/Char';
 import Cockpit from '../components/Cockpit/Cockpit';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import WithClass from '../hoc/WithClass';
+
+
+//gdy importujemy coś, to zaczynamy nazwę z wielkiej litery gdy imprtujemy jakis komponent a z małej gdy importujemy
+//funkcję (lub selecktor z pliu css). To czy importujemy funkcję czy komponent zalezy od tego, jaka jest struktura
+//pliku z którego importujemy element.
 
 
 //importuj zawsze nazwy z wielkich liter żeby Rwact mógł je odróżnić od elementów JSX
@@ -127,7 +133,7 @@ class App extends Component {
         }
         return (
 
-            <div className={classes.App}>
+            <WithClass classes={classes.App}>
                 <button
                 onClick={() => {
                     this.setState({showCockpit: false});
@@ -152,7 +158,7 @@ class App extends Component {
                 <p>{this.state.userInput}</p>
                 <ValidationComponent inputLenght={this.state.userInput.length}/>
                 {charList}
-            </div>
+            </WithClass>
         );
     }
 }
