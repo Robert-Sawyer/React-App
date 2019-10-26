@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import classes from './Person.module.css';
 import Aux from '../../../hoc/AuxComponent';
+import withClass from '../../../hoc/WithClass';
+
 
 class Person extends Component {
     render() {
@@ -11,9 +13,9 @@ class Person extends Component {
             //elementowi unikalny key, wtedy zadziała tak samo jak teraz bez błędów i warningów
             <Aux>
                 {/*<div className={classes.Person}>*/}
-                <p onClick={this.props.click}>I am {this.props.name} and I'm {this.props.age} years old</p>
-                <p>{this.props.children}</p>
-                <input type="text" onChange={this.props.changed} value={this.props.name}/>
+                <p key='i1' onClick={this.props.click}>I am {this.props.name} and I'm {this.props.age} years old</p>
+                <p key='i2'>{this.props.children}</p>
+                <input key='i3' type="text" onChange={this.props.changed} value={this.props.name}/>
                 {/*</div>*/}
             </Aux>
         )
@@ -33,7 +35,7 @@ class Person extends Component {
     //W class-based components samo props nie działa, musi być poprzedzone słowem 'this'.
 }
 
-export default Person;
+export default withClass(Person, classes.Person);
 
 //gdy komponent jest funkcyjny  i ma const zamiast class (wtedy używa się nazwy z małęj litery) to po zmianie na
 //class-based component zmianiamy nazwe na wielką literę i tak samo export

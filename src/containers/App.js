@@ -5,7 +5,8 @@ import ValidationComponent from '../Exercise2/ValidationComponent';
 import Char from '../Exercise2/Char';
 import Cockpit from '../components/Cockpit/Cockpit';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
-import WithClass from '../hoc/WithClass';
+import withClass from '../hoc/WithClass';
+import Aux from '../hoc/AuxComponent';
 
 
 //gdy importujemy coś, to zaczynamy nazwę z wielkiej litery gdy imprtujemy jakis komponent a z małej gdy importujemy
@@ -133,7 +134,7 @@ class App extends Component {
         }
         return (
 
-            <WithClass classes={classes.App}>
+            <Aux>
                 <button
                 onClick={() => {
                     this.setState({showCockpit: false});
@@ -158,9 +159,9 @@ class App extends Component {
                 <p>{this.state.userInput}</p>
                 <ValidationComponent inputLenght={this.state.userInput.length}/>
                 {charList}
-            </WithClass>
+            </Aux>
         );
     }
 }
 
-export default App;
+export default withClass(App, classes.App);
