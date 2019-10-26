@@ -1,18 +1,23 @@
 import React, {Component} from 'react';
 import classes from './Person.module.css';
+import Aux from '../../../hoc/AuxComponent';
 
-class Person extends Component{
+class Person extends Component {
     render() {
         console.log('[Person.js] rendering...')
         return (
-            <div className={classes.Person}>
+            //Możemy zwrócić wiele elementów JSX, nie tylko jeden, ale musza być w tablicy - można usunąc diva i
+            //zastąpić nawiasy okrągłe w return kwadratowymi, przedzielić elementy przecinkami i nadać każdemu
+            //elementowi unikalny key, wtedy zadziała tak samo jak teraz bez błędów i warningów
+            <Aux>
+                {/*<div className={classes.Person}>*/}
                 <p onClick={this.props.click}>I am {this.props.name} and I'm {this.props.age} years old</p>
                 <p>{this.props.children}</p>
                 <input type="text" onChange={this.props.changed} value={this.props.name}/>
-            </div>
+                {/*</div>*/}
+            </Aux>
         )
     }
-
 
 
     // <p>Hey, this is my favourite leaf! I am {Math.floor(Math.random() * 30)} years old</p>
