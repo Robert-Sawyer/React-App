@@ -34,7 +34,8 @@ class App extends Component {
         otherState: 'some other value',
         showPersons: false,
         userInput: '',
-        showCockpit: true
+        showCockpit: true,
+        changeCounter: 0
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -94,8 +95,16 @@ class App extends Component {
         const personList = [...this.state.persons];
         personList[personIndex] = person;
 
-        this.setState({persons: personList});
-    }
+        //Poniższy sposób aktualizacji state jest rekomendowany gdy nowe state zalezy od poprzedniego
+        //Można by było nie używać return i parametrów prevState i props i za changeCounter dać this.state.changeC,
+        //ale to gorszy sposó, gdyż nie gwarantuje stuprocentowej skuteczności
+        this.setState((prevState, props) => {
+            return {
+                persons: personList,
+                changeCounter: prevState.changeCounter + 1
+            };
+        });
+    };
 
     togglePersonsHandler = () => {
         const doesShow = this.state.showPersons;
