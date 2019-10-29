@@ -1,16 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import classes from "./Cockpit.module.css";
 
 //cockpit jest komponentem funkcyjnym, czyli uzywamy w nim React Hook
 const cockpit = (props) => {
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
+    const hidePerBtnRef = useRef(null);
+
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
         //Http request...
-        setTimeout(() => {
-            alert('Saved data to cloud');
-        }, 1000);
+        // setTimeout(() => {
+        //     alert('Saved data to cloud');
+        // }, 1000);
+        hidePerBtnRef.current.click();
         return () => {
                 console.log('[Cockpit.js] cleanup work in useEffect');
             };
@@ -56,6 +61,7 @@ const cockpit = (props) => {
             {/*poprzez bind możemy wykorzystać argument dostarczany do switchNameHandler*/}
 
             <button
+                ref={hidePerBtnRef}
                 className={btnClass}
                 onClick={props.clicked}>Hide Person
             </button>
