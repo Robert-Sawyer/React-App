@@ -1,5 +1,6 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useContext} from 'react';
 import classes from "./Cockpit.module.css";
+import AuthContext from '../../context/auth-context';
 
 //cockpit jest komponentem funkcyjnym, czyli uzywamy w nim React Hook
 const cockpit = (props) => {
@@ -7,6 +8,9 @@ const cockpit = (props) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const hidePerBtnRef = useRef(null);
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const authContext = useContext(AuthContext);
+    console.log(authContext.authenticated);
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
@@ -17,8 +21,8 @@ const cockpit = (props) => {
         // }, 1000);
         hidePerBtnRef.current.click();
         return () => {
-                console.log('[Cockpit.js] cleanup work in useEffect');
-            };
+            console.log('[Cockpit.js] cleanup work in useEffect');
+        };
     }, []);
     //jeśli chcę, żeby useEffect uruchamiał się tylko gdy coś zmienię, nie za każdym razem, gdy zwinę/rozwinę persons
     //dodaję w [] odniesienie do tego elementu, zyskując doń dostęp za pomocą props (props.persons]. Można użyć useEffect
@@ -65,10 +69,9 @@ const cockpit = (props) => {
                 className={btnClass}
                 onClick={props.clicked}>Hide Person
             </button>
-            <button
-                onClick={props.login}>
-                Log In
-            </button>
+            {/*W komponentach funkcyjnych można użyć contextu wyłąćznie za pomocą consumera, nie jak w class-based*/}
+            {/*komponentach w formie statycznej zmiennej*/}
+            <button onClick={authContext.login}>Log In</button>
         </div>
     )
 };
