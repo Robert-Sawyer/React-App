@@ -24,6 +24,7 @@ class Person extends Component {
             //zastąpić nawiasy okrągłe w return kwadratowymi, przedzielić elementy przecinkami i nadać każdemu
             //elementowi unikalny key, wtedy zadziała tak samo jak teraz bez błędów i warningów
             <Aux>
+                {this.props.isAuth ? <p>Authenticated</p> : <p>Please log in</p>}
                 {/*<div className={classes.Person}>*/}
                 <p key='i1' onClick={this.props.click}>I am {this.props.name} and I'm {this.props.age} years old</p>
                 <p key='i2'>{this.props.children}</p>

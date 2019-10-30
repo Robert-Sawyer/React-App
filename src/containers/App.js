@@ -35,7 +35,8 @@ class App extends Component {
         showPersons: false,
         userInput: '',
         showCockpit: true,
-        changeCounter: 0
+        changeCounter: 0,
+        authenticated: false
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -122,6 +123,10 @@ class App extends Component {
         this.setState({userInput: updatedText});
     };
 
+    loginHandler = () => {
+        this.setState({authenticated: true});
+    };
+
     render() {
         console.log('[App.js] render')
         const charList = this.state.userInput.split('').map((ch, index) => {
@@ -139,23 +144,26 @@ class App extends Component {
                 <Persons
                     persons={this.state.persons}
                     clicked={this.deletePerson}
-                    changed={this.nameChangedHandler}/>;
+                    changed={this.nameChangedHandler}
+                    isAuthenticated={this.state.authenticated}/>;
         }
         return (
 
             <Aux>
                 <button
-                onClick={() => {
-                    this.setState({showCockpit: false});
-                }}>Remove cockpit</button>
+                    onClick={() => {
+                        this.setState({showCockpit: false});
+                    }}>Remove cockpit
+                </button>
                 {this.state.showCockpit ?
                     (<Cockpit
-                    title={this.props.appTitle}
-                    showPersons={this.state.showPersons}
-                    personsLength={this.state.persons.length}
-                    clicked={this.togglePersonsHandler}
-                    switched={() => this.switchNameHandler('Sawyer!!!')}
-                    switchedAlt={() => this.switchNameHandler('Sawyer!')}/>
+                            title={this.props.appTitle}
+                            showPersons={this.state.showPersons}
+                            personsLength={this.state.persons.length}
+                            clicked={this.togglePersonsHandler}
+                            login={this.loginHandler}
+                            switched={() => this.switchNameHandler('Sawyer!!!')}
+                            switchedAlt={() => this.switchNameHandler('Sawyer!')}/>
                     ) : null}
                 {persons}
                 <br/><br/>
