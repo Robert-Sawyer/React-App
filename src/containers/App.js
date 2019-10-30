@@ -4,9 +4,9 @@ import Persons from '../components/Persons/Persons';
 import ValidationComponent from '../Exercise2/ValidationComponent';
 import Char from '../Exercise2/Char';
 import Cockpit from '../components/Cockpit/Cockpit';
-import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import withClass from '../hoc/WithClass';
 import Aux from '../hoc/AuxComponent';
+import AuthContext from '../context/auth-context';
 
 
 //gdy importujemy coś, to zaczynamy nazwę z wielkiej litery gdy imprtujemy jakis komponent a z małej gdy importujemy
@@ -145,7 +145,8 @@ class App extends Component {
                     persons={this.state.persons}
                     clicked={this.deletePerson}
                     changed={this.nameChangedHandler}
-                    isAuthenticated={this.state.authenticated}/>;
+                    // isAuthenticated={this.state.authenticated}
+                />;
         }
         return (
 
@@ -155,17 +156,22 @@ class App extends Component {
                         this.setState({showCockpit: false});
                     }}>Remove cockpit
                 </button>
-                {this.state.showCockpit ?
-                    (<Cockpit
-                            title={this.props.appTitle}
-                            showPersons={this.state.showPersons}
-                            personsLength={this.state.persons.length}
-                            clicked={this.togglePersonsHandler}
-                            login={this.loginHandler}
-                            switched={() => this.switchNameHandler('Sawyer!!!')}
-                            switchedAlt={() => this.switchNameHandler('Sawyer!')}/>
-                    ) : null}
-                {persons}
+                <AuthContext.Provider
+                    value={{
+                        authenticated: this.state.authenticated,
+                        login: this.loginHandler
+                    }}>
+                    {this.state.showCockpit ?
+                        (<Cockpit
+                                title={this.props.appTitle}
+                                showPersons={this.state.showPersons}
+                                personsLength={this.state.persons.length}
+                                clicked={this.togglePersonsHandler}
+                                switched={() => this.switchNameHandler('Sawyer!!!')}
+                                switchedAlt={() => this.switchNameHandler('Sawyer!')}/>
+                        ) : null}
+                    {persons}
+                </AuthContext.Provider>
                 <br/><br/>
 
                 {/*===CWICZENIE 2===*/}
