@@ -1,2 +1,2 @@
-# BurgerBuilder
-My first fully front-end application with using React.
+# Person Manager
+React application where you can manage components with Person.
